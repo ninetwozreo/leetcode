@@ -1,3 +1,5 @@
+package backTracking;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -6,13 +8,14 @@ class Solution976 {
     private static Solution976 solution976;
 	public static void main(String[] args) {
         solution976 = new Solution976();
-        solution976.largestPerimeter({2,1,2});
+        int [] A={1,2,3};
+        solution976.largestPerimeter(A);
     }
 
     int res = 0;
     //976
     public int largestPerimeter(int[] A) {
-        List<Integer> path = new ArrayList();
+        List<Integer> path = new ArrayList<Integer>();
         Arrays.sort(A);
         return backtrack(path, A);
         // return res;
