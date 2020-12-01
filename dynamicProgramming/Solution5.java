@@ -25,11 +25,11 @@ class Solution5 {
 	public static void main(String[] args) {
         Solution5 solution5 = new Solution5();
         int [] A={1,2,3};
-        System.out.println(solution5.longestPalindrome("miycvxmqggnmmcwlmizfojwrurwhwygwfykyefxbgveixykdebenzitqnciigfjgrzzbtgeazyrbiirmejhdwcgjzwqolrturjlqpsgunuqerqjevbheblmbvgxyedxshswsokbhzapfuojgyfhctlaifrisgzqlczageirnukgnmnbwogknyyuynwsuwbumdmoqwxprykmazghcpmkdcjduepjmjdxrhvixxbfvhybjdpvwjbarmbqypsylgtzyuiqkexgvirzylydrhrmuwpmfkvqllqvekyojoacvyrzjevaupypfrdguhukzuqojolvycgpjaendfetkgtojepelhcltorueawwjpltehbbjrvznxhahtuaeuairvuklctuhcyzomwrrznrcqmovanxmiyilefybkbveesrxkmqrqkowyrimuejqtikcjfhizsmumajbqglxrvevexnleflocxoqgoyrzgqflwiknntdcykuvdcpzlakljidclhkllftxpinpvbngtexngdtntunzgahuvfnqjedcafzouopiixw")); 
+        System.out.println("输出结果为："+solution5.longestPalindrome("babad")); 
     }
 
     String res="";
-
+    //可用 但是超出内存限制
     public String longestPalindrome(String s) {
 
         return tranverse(s);
@@ -40,48 +40,88 @@ class Solution5 {
             return s;
         }
         Map<String,Boolean> valid=new HashMap<>();
-        int lt,rt;
+        int lt,rt,rtt;
+        String testS;
+        boolean judge;
+        Boolean hb;
         for(int i=0;i<s.length();i++){
           lt=rt=i;
+        //   if(res.length()>)
+          //是否相邻判断
+        //   if(i>0&&i<s.length()-1){
+        //     if(s.charAt(i)==s.charAt(i+1)){
+        //         rt++;
+        //         String testS=s.substring(lt, rt+1);
+                
+        //         res=res.length()>testS.length()?res:testS;
+
+        //     }
+
+        //   }
           
+          rtt=i+1;
           while(lt>=0&&rt<=s.length()){
-            String testS=s.substring(lt, rt);
-              boolean judge;
-              Boolean hb=valid.get(testS);
+            testS=s.substring(lt, rt);
+               hb=valid.get(testS);
               if(hb!=null){
                     judge=hb;
               }else{
                 judge=isValid(testS);
+                if(judge){
                     valid.put(testS, judge);
+    
+                   }
               }
               if(judge){
 
                 res=res.length()>testS.length()?res:testS;
                 
               }
-              lt--;
-              rt++;
-          }
-          lt=rt=i;
-          rt+=1;
-          while(lt>=0&&rt<=s.length()){
-          String testS=s.substring(lt, rt);
-              boolean judge;
-              Boolean hb=valid.get(testS);
-              if(hb!=null){
-                    judge=hb;
-              }else{
-                judge=isValid(testS);
-                    valid.put(testS, judge);
-              }
-              if(judge){
+              
 
-              res=res.length()>testS.length()?res:testS;
-                
-              }
-              lt--;
-              rt++;
+              if(rtt<=s.length()){
+              
+              testS=s.substring(lt, rtt);
+              hb=valid.get(testS);
+             if(hb!=null){
+                   judge=hb;
+             }else{
+               judge=isValid(testS);
+               if(judge){
+                valid.put(testS, judge);
+
+               }
+             }
+             if(judge){
+
+             res=res.length()>testS.length()?res:testS;
+               
+             }
+            }
+             lt--;
+             rt++;
+             rtt++;
+
           }
+        //   lt=rt=i;
+        //   rt+=1;
+        //   while(lt>=0&&rt<=s.length()){
+        //   testS=s.substring(lt, rt);
+        //        hb=valid.get(testS);
+        //       if(hb!=null){
+        //             judge=hb;
+        //       }else{
+        //         judge=isValid(testS);
+        //         valid.put(testS, judge);
+        //       }
+        //       if(judge){
+
+        //       res=res.length()>testS.length()?res:testS;
+                
+        //       }
+        //       lt--;
+        //       rt++;
+        //   }
         }
         
         return res;
