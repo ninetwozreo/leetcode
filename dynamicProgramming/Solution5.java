@@ -12,7 +12,6 @@
 
 // 来源：力扣（LeetCode）
 // 链接：https://leetcode-cn.com/problems/longest-palindromic-substring
-
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 package dynamicProgramming;
 
@@ -26,8 +25,7 @@ class Solution5 {
 	public static void main(String[] args) {
         Solution5 solution5 = new Solution5();
         int [] A={1,2,3};
-        //这个内存太多，超出限制
-        System.out.println(solution5.longestPalindrome("civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth")); 
+        System.out.println(solution5.longestPalindrome("miycvxmqggnmmcwlmizfojwrurwhwygwfykyefxbgveixykdebenzitqnciigfjgrzzbtgeazyrbiirmejhdwcgjzwqolrturjlqpsgunuqerqjevbheblmbvgxyedxshswsokbhzapfuojgyfhctlaifrisgzqlczageirnukgnmnbwogknyyuynwsuwbumdmoqwxprykmazghcpmkdcjduepjmjdxrhvixxbfvhybjdpvwjbarmbqypsylgtzyuiqkexgvirzylydrhrmuwpmfkvqllqvekyojoacvyrzjevaupypfrdguhukzuqojolvycgpjaendfetkgtojepelhcltorueawwjpltehbbjrvznxhahtuaeuairvuklctuhcyzomwrrznrcqmovanxmiyilefybkbveesrxkmqrqkowyrimuejqtikcjfhizsmumajbqglxrvevexnleflocxoqgoyrzgqflwiknntdcykuvdcpzlakljidclhkllftxpinpvbngtexngdtntunzgahuvfnqjedcafzouopiixw")); 
     }
 
     String res="";
@@ -46,16 +44,15 @@ class Solution5 {
         for(int i=0;i<s.length();i++){
           lt=rt=i;
           
-          String testS="";
           while(lt>=0&&rt<=s.length()){
-              testS=s.substring(lt, rt);
+            String testS=s.substring(lt, rt);
               boolean judge;
               Boolean hb=valid.get(testS);
               if(hb!=null){
                     judge=hb;
               }else{
                 judge=isValid(testS);
-                valid.put(testS, judge);
+                    valid.put(testS, judge);
               }
               if(judge){
 
@@ -68,14 +65,14 @@ class Solution5 {
           lt=rt=i;
           rt+=1;
           while(lt>=0&&rt<=s.length()){
-              testS=s.substring(lt, rt);
+          String testS=s.substring(lt, rt);
               boolean judge;
               Boolean hb=valid.get(testS);
               if(hb!=null){
                     judge=hb;
               }else{
                 judge=isValid(testS);
-                valid.put(testS, judge);
+                    valid.put(testS, judge);
               }
               if(judge){
 
