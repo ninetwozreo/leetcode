@@ -12,7 +12,6 @@ class Solution37 {
         System.out.println("aaa"
         );
      }
-     class Solution {
         public void solveSudoku(char[][] board) {
             
             backtrack(board,0,0);
@@ -67,5 +66,4 @@ class Solution37 {
             }
             return false;
         }
-    }
 }
