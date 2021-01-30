@@ -5,115 +5,57 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Random;
 import java.util.Set;
 
-class Solution91 {
-    // 一条包含字母 A-Z 的消息通过以下方式进行了编码：
+class Solution207 {
+    
+// 你这个学期必须选修 numCourse 门课程，记为 0 到 numCourse-1 。
 
-    // 'A' -> 1
-    // 'B' -> 2
-    // ...
-    // 'Z' -> 26
-    // 给定一个只包含数字的非空字符串，请计算解码方法的总数。
+// 在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们：[0,1]
 
-    // 题目数据保证答案肯定是一个 32 位的整数。
+// 给定课程总量以及它们的先决条件，请你判断是否可能完成所有课程的学习？
 
-    //  
+ 
 
-    // 示例 1：
+// 示例 1:
 
-    // 输入：s = "12"
-    // 输出：2
-    // 解释：它可以解码为 "AB"（1 2）或者 "L"（12）。
-    // 示例 2：
+// 输入: 2, [[1,0]] 
+// 输出: true
+// 解释: 总共有 2 门课程。学习课程 1 之前，你需要完成课程 0。所以这是可能的。
+// 示例 2:
 
-    // 输入：s = "226"
-    // 输出：3
-    // 解释：它可以解码为 "BZ" (2 26), "VF" (22 6), 或者 "BBF" (2 2 6) 。
-    // 示例 3：
+// 输入: 2, [[1,0],[0,1]]
+// 输出: false
+// 解释: 总共有 2 门课程。学习课程 1 之前，你需要先完成​课程 0；并且学习课程 0 之前，你还应先完成课程 1。这是不可能的。
+ 
 
-    // 输入：s = "0"
-    // 输出：0
-    // 示例 4：
+// 提示：
 
-    // 输入：s = "1"
-    // 输出：1
-    // 示例 5：
-
-    // 输入：s = "2"
-    // 输出：1
-    //  
-
-    // 提示：
-
-    // 1 <= s.length <= 100
-    // s 只包含数字，并且可能包含前导零
+// 输入的先决条件是由 边缘列表 表示的图形，而不是 邻接矩阵 。详情请参见图的表示法。
+// 你可以假定输入的先决条件中没有重复的边。
+// 1 <= numCourses <= 10^5
 
     public static void main(String[] args) {
-        Solution91 solution5 = new Solution91();
+        Solution207 solution207 = new Solution207();
         int[] A = { 1, 2, 3 };
-        System.out.println("输出结果为：" + solution5.numDecodings("12"));
+        System.out.println("输出结果为：" + solution207.canFinish("12"));
     }
 
-    public int numDecodings(String s) {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        for (int i=0 ;i<prerequisites.length;i++){
 
-        // 长度+1 存储各长度字符串解码方法总数
-        Integer memo[] = new Integer[s.length() + 1];
-        // 长度为0的空字符串解法设为 1
-        memo[0] = 1;
-        // 长度为1 的字符串解码
-        if (s.charAt(s.length() - 1) == '0') {
-            memo[1] = 0;
-        } else { // 不是0则只能为1-9，只有一种解码方法
-            memo[1] = 1;
         }
-        // 算2至n解码方法总数
-        for (int i = 2; i < s.length() + 1; i++) {
-
-            // 设置1位2位数字是否可解码的标志位
-            int oneNum = 1;
-            int twoNum = 1;
-            int firstNum = Integer.parseInt(s.substring(s.length() - i, s.length() - i + 1));
-            String firstTwoNumStr = s.substring(s.length() - i, s.length() - i + 2);
-            int firstTwoNum = Integer.parseInt(firstTwoNumStr);
-            // 一位数字不可解码的情况
-            if (firstNum > 26 || firstNum < 1)
-                oneNum = 0;
-            // 两位数字不可解码的情况
-            if (firstTwoNumStr.charAt(0) == '0')
-                twoNum = 0;
-            if (firstTwoNum > 26 || firstTwoNum < 1)
-                twoNum = 0;
-
-            // 计算memo[n]，即长度为n的字符串的解法总数
-            memo[i] = oneNum * memo[i - 1] + twoNum * memo[i - 2];
-        }
-
-        // 返回memo[n],即长度为n的字符串的解码方法总数
-        return memo[s.length()];
+        return Math.random()>0.5;
     }
 
-    // 计算memo[n]，即长度为n的字符串的解法总数
-    // memo[i] = oneNum * memo[i - 1] + twoNum * memo[i - 2];
-
-    // def dp(n):
-    // # base case
-    // if n == 0: return 0
-    // if n < 0: return -1
-    // # 求最小值，所以初始化为正无穷
-    // res = float('INF')
-    // for coin in coins:
-    // subproblem = dp(n - coin)
-    // # 子问题无解，跳过
-    // if subproblem == -1: continue
-    // res = min(res, 1 + subproblem)
-
-    // return res if res != float('INF') else -1
-
-    // return dp(amount)
-
-    // return res;
-
-    // }
+        public boolean contains(int [] A, int target){
+            for(int i=0;i<A.length;i++){
+                if(A[i]==target){
+                    return true;
+                }
+            }
+            return false;
+        }
 
 }
