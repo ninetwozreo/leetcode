@@ -1,8 +1,10 @@
 package bfs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
@@ -38,24 +40,83 @@ class Solution207 {
 
     public static void main(String[] args) {
         Solution207 solution207 = new Solution207();
-        int[] A = { 1, 2, 3 };
-        System.out.println("输出结果为：" + solution207.canFinish("12"));
+        int[][] A = {{0,2},{1,2},{2,0} };
+        System.out.println("输出结果为：" + solution207.canFinish(5,A));
     }
 
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        for (int i=0 ;i<prerequisites.length;i++){
+    
 
-        }
-        return Math.random()>0.5;
-    }
+        Map<Integer,int[]> map= new HashMap();
+        Map<Integer,Boolean> bmap= new HashMap();
 
-        public boolean contains(int [] A, int target){
-            for(int i=0;i<A.length;i++){
-                if(A[i]==target){
-                    return true;
+public boolean canFinish(int numCourses, int[][] prerequisites) {
+    List<Integer> steps= new ArrayList();
+        for(int i=0;i<prerequisites.length;i++ ){
+            int[] curData=prerequisites[i];
+            int lastNum=curData[curData.length-1];
+            if(map.containsKey(lastNum)){
+                int[] a=new int[map.get(lastNum).length+curData.length-1];
+                for(int n=0;n<curData.length-1; n++){
+                    a[n]=curData[n];
                 }
+                for(int n=curData.length-1;n<a.length; n++){
+                    a[n]=map.get(lastNum)[n-curData.length+1];
+                }
+                map.put(lastNum, a);
+
+            }else{
+
+                map.put(lastNum,curData);
             }
+            bmap.put(curData[curData.length-1],false);
+        }
+        
+        for(int j=0;j<prerequisites.length;j++){
+            // boolean res=getWheather(prerequisites[j][prerequisites[j].length-1]);
+            // if(!res){
+            //     return res;
+            // }
+            steps.clear();
+            for(int m=prerequisites[j].length-1;m>=0;m--){
+                int curNum=prerequisites[j][m];
+               if( getWheather(curNum,steps)){
+                    continue;
+               }else{
+                   return false;
+               }
+                // if(steps.contains(prerequisites[j][m])){
+                //     return false;
+                // }else{
+                //     steps.add(prerequisites[j][m]);
+                // }
+            }
+        }
+        return true;
+}
+
+boolean  getWheather(int curNum,List<Integer> steps){
+    int[]  curData= map.get(curNum);
+    // if(bmap.get(curNum)){
+    //     return false;
+    // }else{
+    //     bmap.replace(curNum, true);
+    // }
+    
+    if(curData==null){
+        return true;
+    }
+    for(int i=curData.length-2;i>=0;i--){
+        if(steps.contains(curData[i])){
             return false;
         }
+        steps.add(curData[i]);
+       boolean res= getWheather(curData[i],steps);
+       steps.clear();
+       if(!res){
+           return res;
+       }
+    }
+    return true;
 
+}
 }
