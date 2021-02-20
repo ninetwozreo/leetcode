@@ -21,127 +21,44 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class Solution5 {
+class Solution62 {
 	public static void main(String[] args) {
-        Solution5 solution5 = new Solution5();
+        Solution62 solution62 = new Solution62();
         int [] A={1,2,3};
-        System.out.println("输出结果为："+solution5.longestPalindrome("babad")); 
+        System.out.println("输出结果为："+solution62.longestPalindrome("babad")); 
     }
 
-    String res="";
-    //可用 但是超出内存限制
-    public String longestPalindrome(String s) {
-
-        return tranverse(s);
-    }
-
-    String tranverse(String s){
-        if(s.length()<=1){
-            return s;
+    Map<String,Integer> pa= new HashMap();
+    public int uniquePaths(int m, int n) {
+        //思路 
+        //递归进行操作
+        //定义递归为下一步的路径树
+        if(m==1||n==1){
+            return 1;
         }
-        Map<String,Boolean> valid=new HashMap<>();
-        int lt,rt,rtt;
-        String testS;
-        boolean judge;
-        Boolean hb;
-        for(int i=0;i<s.length();i++){
-          lt=rt=i;
-        //   if(res.length()>)
-          //是否相邻判断
-        //   if(i>0&&i<s.length()-1){
-        //     if(s.charAt(i)==s.charAt(i+1)){
-        //         rt++;
-        //         String testS=s.substring(lt, rt+1);
-                
-        //         res=res.length()>testS.length()?res:testS;
 
-        //     }
+if(m<n){
+    int t=m;
+    m=n;
+    n=t;
+}
 
-        //   }
-          
-          rtt=i+1;
-          while(lt>=0&&rt<=s.length()){
-            testS=s.substring(lt, rt);
-               hb=valid.get(testS);
-              if(hb!=null){
-                    judge=hb;
-              }else{
-                judge=isValid(testS);
-                if(judge){
-                    valid.put(testS, judge);
-    
-                   }
-              }
-              if(judge){
-
-                res=res.length()>testS.length()?res:testS;
-                
-              }
-              
-
-              if(rtt<=s.length()){
-              
-              testS=s.substring(lt, rtt);
-              hb=valid.get(testS);
-             if(hb!=null){
-                   judge=hb;
-             }else{
-               judge=isValid(testS);
-               if(judge){
-                valid.put(testS, judge);
-
-               }
-             }
-             if(judge){
-
-             res=res.length()>testS.length()?res:testS;
-               
-             }
-            }
-             lt--;
-             rt++;
-             rtt++;
-
-          }
-        //   lt=rt=i;
-        //   rt+=1;
-        //   while(lt>=0&&rt<=s.length()){
-        //   testS=s.substring(lt, rt);
-        //        hb=valid.get(testS);
-        //       if(hb!=null){
-        //             judge=hb;
-        //       }else{
-        //         judge=isValid(testS);
-        //         valid.put(testS, judge);
-        //       }
-        //       if(judge){
-
-        //       res=res.length()>testS.length()?res:testS;
-                
-        //       }
-        //       lt--;
-        //       rt++;
-        //   }
+Integer tap1=pa.get(String.valueOf(m-1)+","+n);
+Integer tap2=pa.get(String.valueOf(m)+","+(n-1));
+if(tap1==null){
+        tap1=this.uniquePaths(m-1,n);
+        pa.put(String.valueOf(m-1)+","+n,tap1);
+        pa.put(String.valueOf(n)+","+(m-1),tap1);
         }
+        if(tap2==null){
+
+        tap2=this.uniquePaths(m,n-1);
+        pa.put(String.valueOf(n-1)+","+n,tap2);
+        pa.put(String.valueOf(m)+","+(n-1),tap2);
+        }
+
         
-        return res;
-    }
-    boolean isValid(String testS){
-        if(testS.length()<=1){
-            return true;
-        }
-        int lt=0;
-        int rt=testS.length()-1;
-        while(lt<=rt){
-           if(testS.charAt(lt)==testS.charAt(rt)) {
-            lt++;
-            rt--;
-           }else{
-               return false;
-           }
-            
-        }
-        return true;
         
-    }
+        return tap1+tap2;
+      }
 }
