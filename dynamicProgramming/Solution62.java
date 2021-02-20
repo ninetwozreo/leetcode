@@ -1,18 +1,4 @@
-// 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
 
-// 示例 1：
-
-// 输入: "babad"
-// 输出: "bab"
-// 注意: "aba" 也是一个有效答案。
-// 示例 2：
-
-// 输入: "cbbd"
-// 输出: "bb"
-
-// 来源：力扣（LeetCode）
-// 链接：https://leetcode-cn.com/problems/longest-palindromic-substring
-// 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 package dynamicProgramming;
 
 import java.util.ArrayList;
@@ -22,6 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 class Solution62 {
+//   一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。
+
+// 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。
+
+// 问总共有多少条不同的路径？
+
 	public static void main(String[] args) {
         Solution62 solution62 = new Solution62();
         int [] A={1,2,3};
