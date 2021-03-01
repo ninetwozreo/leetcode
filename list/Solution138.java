@@ -1,9 +1,14 @@
 package list;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.lang.model.util.ElementScanner6;
+
+import org.graalvm.compiler.graph.Node;
 
 class Solution138 {
     public static void main(String[] args) {
@@ -16,103 +21,55 @@ class Solution138 {
         
     }
 
-   
-    /**
-     * Definition for a binary tree node. public class TreeNode { int val; TreeNode
-     * left; TreeNode right; TreeNode() {} TreeNode(int val) { this.val = val; }
-     * TreeNode(int val, TreeNode left, TreeNode right) { this.val = val; this.left
-     * = left; this.right = right; } }
-   
-        [5,3,6,2,4,null,7]
-     * 
-     * [5,3,6,2,4,null,7]
-        7
-     */
-    public TreeNode deleteNode(TreeNode root, int key) {
-        TreeNode top=root;
-        if(root==null||root.val==key&&root.left==null&&root.right==null){
-            return null;
-        }
-        tranverse(root,key);
-        // tranverse(root.right,key);
-        return top;
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
     }
+}
 
-    public void tranverse(TreeNode root,int key){
-        if(root==null){
-            return;
+    public Node copyRandomList(Node head) {
+        if(head==null){
+            return head;
         }
-        if(root.val==key){
-            delete(root);
-            return;
-        }else if(root.val>key){
-            tranverse(root.left, key);
-        }else{
-            tranverse(root.right, key);
-        }
-    }
+        Node res= new Node(head.val);
+        Node tap=new Node(1);
+        Node tata=new Node(2);
+        tap.next=res;
+        tata.next=res;
+        Node th=new Node(1);
+        Node ch=new Node(2);;
 
-    public void delete(TreeNode root){
-         if(root.right!=null){
-            if(root.right.left!=null){
+        th.next=head;
+        ch.next=head;
+        Map<Node,Node> map= new HashMap<>();
 
-                addValToTree(root.left,root.right.left);
-            }
-            root.val=root.right.val;
+        map.put(th, res);
+        th=th.next;
+        while(th.next!=null){
+            res.next=new Node( th.next.val);
 
-            root.right=root.right.right;
+            map.put(th.next, res.next);
+
+            res=res.next;
+            th=th.next;
             
-
-        }else if(root.left!=null){
-            if(root.left.right!=null){
-                addValToTree(root.right,root.left.right);
-                
-            }
-            root.val=root.left.val;
-
-            root.left=root.left.left;
-            
-            // root.right.left=root.right;
-            
-        }else{
-            root=null;
         }
-
-    }
-
-    public void addValToTree(TreeNode root,TreeNode target){
-        if(root==null){
-            root=target;
-        }else if(root.val<target.val){
-            addValToTree(root.right, target);
-
-        }else if(root.val>target.val){
-            addValToTree(root.left, target);
+        
+        tap=tap.next;
+        ch=ch.next;
+        while(ch.random!=null){
+            tap.random=map.get(ch.random);
+            tap=tap.next;
+            ch=ch.next;            
         }
-
-    }
-
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(TreeNode another) {
-            this.left = another.left;
-            this.val = another.val;
-            this.right = another.right;
-        }
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
+        
+        return tata.next;
     }
 }
